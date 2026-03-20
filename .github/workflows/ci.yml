@@ -1,0 +1,27 @@
+name: CI do Telegram Bot 🤖
+
+on:
+  push:
+    branches: [ "main", "feature/*" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'   # Cacheia os modulos do NPM para o CI rodar bem mais rápido!
+
+      - name: Instalar dependências (limpo para DevOps)
+        run: npm ci
+
+      - name: Executar bateria de testes unitários (Jest) 🧪
+        run: npm test
