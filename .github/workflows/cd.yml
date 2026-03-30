@@ -1,0 +1,36 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Simulate Deployment
+        run: |
+          echo "======================================"
+          echo "🚀 Inciando o Deploy Simulado..."
+          echo "======================================"
+          sleep 2
+          echo "📦 Gerando pacote de produção..."
+          sleep 2
+          echo "🌐 Enviando arquivos para o servidor..."
+          sleep 2
+          echo "✅ Deploy concluído com sucesso!"
+          echo "======================================"
