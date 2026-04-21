@@ -1,0 +1,18 @@
+name: Alertas do Discord
+
+on:
+  push:
+    branches:
+      - main # O workflow será acionado em cada push ou merge na branch main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar notificação para o Discord
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{
+            "content": "🚀 **Alerta DevOps:** Uma nova alteração foi integrada no repositório!\n**Autor do commit:** `${{ github.actor }}`\n**Branch:** `main`\n**Veja os detalhes neste link:** ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}"
+          }' \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
